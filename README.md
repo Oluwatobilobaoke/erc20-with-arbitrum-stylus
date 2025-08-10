@@ -12,7 +12,7 @@ A complete ERC20 token implementation written in Rust for Arbitrum Stylus, featu
 
 ## Contract Overview
 
-The contract implements the following ERC20 functionality:
+The contract implements the following ERC20 functionality based on the [OpenZeppelin ERC20 interface](http://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol):
 
 ### Core Functions
 - `name()`: Returns the token name
