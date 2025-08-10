@@ -74,9 +74,18 @@ cargo stylus check
 # Export ABI
 cargo stylus export-abi > abi/erc20.json
 
-# Deploy to Arbitrum Stylus testnet
-cargo stylus deploy --private-key-path=<PRIVKEY_FILE_PATH>
+# Deploy to Arbitrum Stylus testnet with constructor arguments
+cargo stylus deploy --no-verify --private-key <YOUR_PRIVATE_KEY> --constructor-args "MyToken" "MTK"
+
+# Example deployed contract
+# Address: 0xab8e440727a38bbb180f7032ca4a8009e7b52b80
 ```
+
+### Deployment Results
+
+![Contract Deployment](./img/contract-deployment.png)
+
+Successfully deployed to Arbitrum Stylus Local Node at address: `0xab8e440727a38bbb180f7032ca4a8009e7b52b80`
 
 ## Usage Examples
 
