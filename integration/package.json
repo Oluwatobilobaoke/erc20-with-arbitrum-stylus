@@ -1,0 +1,21 @@
+{
+  "name": "erc20-integration",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "bun test",
+    "initialize": "bun run initialize.ts",
+    "interact": "bun run interact.ts",
+    "demo": "bun run demo.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "viem": "^2.33.3"
+  }
+}

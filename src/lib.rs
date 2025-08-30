@@ -192,11 +192,19 @@ impl ERC20 {
 /// Declare that `Counter` is a contract with the following external methods.
 #[public]
 impl ERC20 {
-    #[constructor]
-    pub fn constructor(&mut self, name: String, symbol: String) {
+    // Initialize function
+    pub fn initialize(&mut self, name: String, symbol: String) -> Result<(), ERC20Error> {
+        // Check if already initialized
+        if !self.owner.get().is_zero() {
+            return Err(ERC20Error::ERC20InvalidSender(ERC20InvalidSender {
+                sender: self.vm().msg_sender(),
+            }));
+        }
+        
         self.name.set_str(name);
         self.symbol.set_str(symbol);
         self.owner.set(self.vm().msg_sender());
+        Ok(())
     }
 
     fn name(&self) -> String {
@@ -264,7 +272,7 @@ mod test {
       use stylus_sdk::testing::*;
       let vm = TestVM::default();
       let mut contract = ERC20::from(&vm);
-      contract.constructor(String::from("Test"), String::from("TT"));
+      let _ = contract.initialize(String::from("Test"), String::from("TT"));
       assert_eq!(contract.name(), "Test");
       assert_eq!(contract.symbol(), "TT");
       assert_eq!(contract.decimals(), 18);
@@ -277,7 +285,7 @@ mod test {
       use stylus_sdk::testing::*;
       let vm = TestVM::default();
       let mut contract = ERC20::from(&vm);
-      contract.constructor(String::from("Test"), String::from("TT"));
+      let _ = contract.initialize(String::from("Test"), String::from("TT"));
       
       let recipient = Address::from([2; 20]);
       let third_party = Address::from([3; 20]);
@@ -322,7 +330,7 @@ mod test {
       use stylus_sdk::testing::*;
       let vm = TestVM::default();
       let mut contract = ERC20::from(&vm);
-      contract.constructor(String::from("TestToken"), String::from("TEST"));
+      let _ = contract.initialize(String::from("TestToken"), String::from("TEST"));
       
       let current_sender = contract.vm().msg_sender();
       println!("Contract owner: {}", contract.owner.get());
